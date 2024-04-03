@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/01.Scenes/Scene1.unity
     guid: dba1a855238643f4ba7be5623863839b
+  - enabled: 1
+    path: Assets/RPG Tiny Hero Duo/Scene/RootMotion.unity
+    guid: 434dafee2b278604da21509f31e83199
   m_configObjects: {}

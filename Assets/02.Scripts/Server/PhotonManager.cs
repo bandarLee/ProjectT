@@ -12,9 +12,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
 {
     private void Start()
     {
-        // 목적: 연결을 하고 싶다. 
-        // 순서:
-        // 1. 게임 버전을 설정한다.
+      
         PhotonNetwork.GameVersion = "0.0.1";
         // <전체를 뒤엎을 변화>, <기능 수정, 추가>, <버그, 내부적 코드 수정>
 
@@ -24,8 +22,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         // 4. 연결한다. 
         PhotonNetwork.ConnectUsingSettings();
 
-        PhotonNetwork.SendRate          = 50;
-        PhotonNetwork.SerializationRate = 30;
+ 
 
     }
 
