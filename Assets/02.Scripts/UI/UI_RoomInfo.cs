@@ -15,6 +15,7 @@ public class UI_RoomInfo : MonoBehaviourPunCallbacks
 
     private string _logText = string.Empty;
     private bool _init = false;
+    private const int MaxLogLines = 8;
 
     private void Awake()
     {
@@ -73,7 +74,14 @@ public class UI_RoomInfo : MonoBehaviourPunCallbacks
 
     public void AddLog(string logMessage)
     {
+
         _logText += logMessage;
+        string[] lines = _logText.Split('\n');
+
+        if (lines.Length > MaxLogLines)
+        {
+            _logText = string.Join("\n", lines, lines.Length - MaxLogLines, MaxLogLines);
+        }
         Refresh();
     }
 }
