@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01.Scenes/Scene1.unity
     guid: dba1a855238643f4ba7be5623863839b
-  - enabled: 1
+  - enabled: 0
     path: Assets/RPG Tiny Hero Duo/Scene/RootMotion.unity
     guid: 434dafee2b278604da21509f31e83199
+  - enabled: 1
+    path: Assets/01.Scenes/Lobby.unity
+    guid: e5acb51634061eb419d4134ae352df44
   m_configObjects: {}
