@@ -11699,7 +11699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705622389}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.010068608, y: 0.986273, z: -0.15115641, w: 0.06569617}
+  m_LocalRotation: {x: 0.010068606, y: 0.986273, z: -0.15115643, w: 0.06569615}
   m_LocalPosition: {x: -3.9962134, y: 22.854889, z: 42.7769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18613,7 +18613,12 @@ MonoBehaviour:
   UICanvasGroup: {fileID: 1124786518}
   Plasma: {fileID: 2072443820}
   tower: {fileID: 1129652673759237}
-  Trash: {fileID: 1923903277}
+  trashs:
+  - {fileID: 1662524800}
+  - {fileID: 1133801150}
+  - {fileID: 2051536476}
+  - {fileID: 1435209983}
+  - {fileID: 982366452}
   towerRuins: {fileID: 1001766074}
 --- !u!4 &1093461605
 Transform:
@@ -31428,7 +31433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700897282}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.010068608, y: 0.986273, z: -0.15115641, w: 0.06569617}
+  m_LocalRotation: {x: 0.010068606, y: 0.986273, z: -0.15115643, w: 0.06569615}
   m_LocalPosition: {x: 134.94928, y: 76.239136, z: 310.77246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
