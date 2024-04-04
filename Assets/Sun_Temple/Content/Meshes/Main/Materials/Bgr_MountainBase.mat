@@ -104,7 +104,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _layer1Rough: 0.271
+    - _layer1Rough: 1
     - _layer1Smooth: 0
     - _layer1Tiling: 1
     m_Colors:

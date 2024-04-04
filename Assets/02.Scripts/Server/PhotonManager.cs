@@ -5,11 +5,15 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Random = UnityEngine.Random;
+using TMPro;
+using UnityEngine.UI;
 
 // 역할: 포톤 서버 연결 관리자
 
 public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서버 이벤트(콜백 함수)를 받는다.
 {
+    public TMP_InputField NicknameInput;
+    public Button joinButton;
     private void Start()
     {
       
@@ -17,7 +21,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         // <전체를 뒤엎을 변화>, <기능 수정, 추가>, <버그, 내부적 코드 수정>
 
         // 2. 닉네임을 설정한다.
-        PhotonNetwork.NickName = $"조희수_{Random.Range(0, 100)}";
         // 3. 씬을 설정한다.
         // 4. 연결한다. 
         PhotonNetwork.ConnectUsingSettings();
@@ -26,65 +29,40 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
 
     }
 
-    // 포톤 서버에 접속 후 호출되는 콜백 함수
-    public override void OnConnected()
-    {
-        Debug.Log("서버 접속 성공");
-        Debug.Log(PhotonNetwork.CloudRegion);
-    }
 
-    // 포톤 서버 연결 해제 후 호출되는 콜백 함수
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Debug.Log("서버 연결 해제");  // 왜 나는 unity 실행 껐을 때 이게 안뜨지?
-    }
 
-    // 포톤 마스터 서버에 접속 후 호출되는 콜백 함수
-    // 어느 호텔의 로비에 들어갈지 선택하는 장소
     public override void OnConnectedToMaster()
     {
-        Debug.Log("마스터 서버 접속 성공");
-        Debug.Log($"InLobby?: {PhotonNetwork.InLobby}");
+        joinButton.interactable = true;
 
-        // 기본 호텔에 들어가겠다.
-        // 로비: 매치메이킹:(방 목록, 방 생성, 방 입장)
-        // - 로비 이름
-        // - 룸 목록, 룸 개수
-        // - 플레이어 수 
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }
-
-    public override void OnJoinedLobby()
+    public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log("로비에 입장했습니다.");
-        Debug.Log($"InLobby?: {PhotonNetwork.InLobby}");
+        // 룸 접속 버튼을 비활성화
+        joinButton.interactable = false;
+        // 접속 정보 표시
 
-        
-       // PhotonNetwork.CreateRoom(); // 방을 만드는 것
-       // PhotonNetwork.JoinRoom(); // 방에 입장하는 것
-       // PhotonNetwork.JoinRandomRoom(); // 랜덤한 방에 입장하는 것
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 20;    // 입장 가능한 최대 플레이어 수
-        roomOptions.IsVisible = true;   // 로비에서 방 목록에 노출할 것인가?
-        roomOptions.IsOpen = true;
-        PhotonNetwork.JoinOrCreateRoom("희수월드", roomOptions, TypedLobby.Default); // 방이 있다면 입장하고 없다면 만드는 것
-       // PhotonNetwork.JoinRandomOrCreateRoom(); // 랜덤한 방에 들어가거나 없다면 만드는 것
+        // 마스터 서버로의 재접속 시도
+        PhotonNetwork.ConnectUsingSettings();
     }
-
-    // 방 생성에 성공했을 때 호출되는 콜백 함수
-    public override void OnCreatedRoom()
+    public void Connect()
     {
-        Debug.Log("방 생성 성공!");
-        Debug.Log($"RoomName: {PhotonNetwork.CurrentRoom.Name}");
+        PhotonNetwork.LocalPlayer.NickName = NicknameInput.text;
+        joinButton.interactable = false;
+        if (PhotonNetwork.IsConnected)
+        {
+            RoomOptions roomOptions = new RoomOptions { MaxPlayers = 20 };
+            PhotonNetwork.JoinOrCreateRoom("Server1", roomOptions, TypedLobby.Default);
+        }
+        else
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("방 입장 성공!");
-        Debug.Log($"RoomName: {PhotonNetwork.CurrentRoom.Name}");
-        Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        Debug.Log($"MaxCount: {PhotonNetwork.CurrentRoom.MaxPlayers}");
-
-        PhotonNetwork.Instantiate(nameof(Character), Vector3.zero, Quaternion.identity);
+        PhotonNetwork.LoadLevel("Scene1");
     }
 }

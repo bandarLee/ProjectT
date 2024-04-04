@@ -4,17 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_RoomInfo : MonoBehaviourPunCallbacks
 {
-    public static UI_RoomInfo Instance {  get; private set; }
+    public static UI_RoomInfo Instance { get; private set; }
 
-    public Text RoomNameTextUI;
-    public Text PlayerCountTextUI;
-    public Text LogTextUI;
+    public TextMeshProUGUI RoomNameTextUI;
+    public TextMeshProUGUI PlayerCountTextUI;
+    public TextMeshProUGUI LogTextUI;
 
-    private string _logText = string.Empty;
-    private bool _init = false;
+    private List<string> _logMessages = new List<string>();
     private const int MaxLogLines = 8;
 
     private void Awake()
@@ -24,15 +24,12 @@ public class UI_RoomInfo : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (!_init)
-        {
-            Init();
-        }
+        Init();
     }
 
     private void Start()
     {
-        if (!_init && PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom)
         {
             Init();
         }
@@ -40,48 +37,46 @@ public class UI_RoomInfo : MonoBehaviourPunCallbacks
 
     private void Init()
     {
-        _init = true;
-
         RoomNameTextUI.text = PhotonNetwork.CurrentRoom.Name;
         PlayerCountTextUI.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}";
 
-        _logText += "방에 입장했습니다";
-        Refresh();
+        AddLog("방에 입장했습니다");
     }
 
     private void Refresh()
     {
-        LogTextUI.text = _logText;
-
+        LogTextUI.text = string.Join("\n", _logMessages);
         PlayerCountTextUI.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}";
     }
 
-    // 새로운 플레이어가 룸에 입장했을 때 호출되는 콜백 함수
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        _logText += $"\n{newPlayer.NickName}님이 입장했습니다.";
-
-        Refresh();
+        AddLog($"{newPlayer.NickName}님이 입장했습니다");
     }
 
-    // 플레이어가 룸에서 퇴장했을 때 호출되는 콜백 함수
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        _logText += $"\n{otherPlayer.NickName}님이 퇴장했습니다.";
-
-        Refresh();
+        AddLog($"{otherPlayer.NickName}님이 퇴장했습니다");
     }
 
     public void AddLog(string logMessage)
     {
-
-        _logText += logMessage;
-        string[] lines = _logText.Split('\n');
-
-        if (lines.Length > MaxLogLines)
+        if (_logMessages.Count >= MaxLogLines)
         {
-            _logText = string.Join("\n", lines, lines.Length - MaxLogLines, MaxLogLines);
+            _logMessages.RemoveAt(0);
         }
+
+        _logMessages.Add(logMessage);
+        Refresh();
+
+        StartCoroutine(RemoveLogAfterDelay(logMessage));
+    }
+
+    private IEnumerator RemoveLogAfterDelay(string logMessage)
+    {
+        yield return new WaitForSeconds(15);
+
+        _logMessages.Remove(logMessage);
         Refresh();
     }
 }

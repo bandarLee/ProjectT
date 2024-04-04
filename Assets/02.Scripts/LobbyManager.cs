@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Photon.Pun;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class LobbyManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         foreach (GameObject trash in trashs) { 
         trash.SetActive(false);
+
         }
 
     }
