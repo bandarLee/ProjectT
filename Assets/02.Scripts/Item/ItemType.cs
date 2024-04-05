@@ -4,6 +4,5 @@ using UnityEngine;
 
 public enum ItemType 
 {
-    HealthPotion,
-    StaminaPotion
+    HealthPotion
 }

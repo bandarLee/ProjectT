@@ -34,7 +34,7 @@ public class ItemObject : MonoBehaviourPun // Pun씀
 
                         break;
                 }
-                case ItemType.StaminaPotion:
+/*                case ItemType.StaminaPotion:
                 {
                         character.Stat.Stamina += Value;
                         if (character.Stat.Stamina > character.Stat.MaxStamina)
@@ -42,7 +42,7 @@ public class ItemObject : MonoBehaviourPun // Pun씀
                             character.Stat.Stamina = character.Stat.MaxStamina;
                         }
                         break;
-                }
+                }*/
             }
             gameObject.SetActive(false); // 시간차가 있어서 써줌
             ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);

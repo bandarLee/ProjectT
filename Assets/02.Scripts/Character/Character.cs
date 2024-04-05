@@ -4,6 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Photon.Realtime;
+using UnityEngine.SocialPlatforms.Impl;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
+
+
 
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
@@ -21,6 +27,9 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
 
     private Vector3 _recivedPosition;
     private Quaternion _recivedRotation;
+
+    private int _exp;
+
 
     private void Awake()
     {
@@ -41,7 +50,24 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
             }
         }
     }
-
+    [PunRPC]
+    public void AddPropertyIntValue(string key, int value)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        myHashtable[key] = (int)myHashtable[key] + value;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myHashtable);
+    }
+    public void SetPropertyIntValue(string key, int value)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        myHashtable[key] = value;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myHashtable);
+    }
+    public int GetPropertyIntValue(string key)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        return (int)myHashtable[key];
+    }
     private void Start()
     {
         if (!PhotonView.IsMine)
@@ -127,11 +153,25 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
 
     private void OnDeath(int actorNumber)
     {
+        Player killer = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber);
+
+        _exp = GetPropertyIntValue("Score");
         if (actorNumber >= 0)
         {
-            string nickname = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber).NickName;
+            string nickname = killer.NickName;
             string logMessage = $"\n{nickname}님이 {PhotonView.Owner.NickName}을 처치하였습니다.";
             PhotonView.RPC(nameof(AddLog), RpcTarget.All, logMessage);
+
+            int killerScore = (int)killer.CustomProperties["Score"];
+            Hashtable killerProps = new Hashtable
+            {
+                { "Score", killerScore + _exp }
+            };
+            killer.SetCustomProperties(killerProps);
+
+            PhotonView.RPC(nameof(AddPropertyIntValue), killer, "KillCount", 1);
+            SetPropertyIntValue("Score", 1);
+
         }
         else
         {
@@ -170,14 +210,29 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
         // 죽고나서 5초후 리스폰
         if(PhotonView.IsMine)
         {
+
             // 팩토리패턴: 객체 생성과 사용 로직을 분리해서 캡슐화하는 패턴
-            ItemObjectFactory.Instance.RequestCreate(ItemType.HealthPotion, transform.position);
-            ItemObjectFactory.Instance.RequestCreate(ItemType.StaminaPotion, transform.position);
+            DropItems();
+
 
             StartCoroutine(Death_Coroutine());
         }
     }
+    private void DropItems()
+    {
+        int randomValue = UnityEngine.Random.Range(0, 100);
+        if (randomValue > 50)     
+        {
+            ItemObjectFactory.Instance.RequestCreate(ItemType.HealthPotion, transform.position);
 
+        }
+        else if (randomValue > 10) 
+        {
+        }
+        else                       
+        {
+        }
+    }
 
     private IEnumerator Death_Coroutine()
     {
@@ -201,4 +256,5 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
         Stat.Init();
         GetComponent<Animator>().SetTrigger("Live");
     }
+
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
@@ -30,9 +31,14 @@ public class Stat
     public int JumpRemainCount;
     public float JumpConsumeStamina;
 
+
+
+
+
     public void Init()
     {
         Health = MaxHealth;
         Stamina = MaxStamina;
+
     }
 }

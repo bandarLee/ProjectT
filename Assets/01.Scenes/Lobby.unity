@@ -11868,7 +11868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705622389}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.010068608, y: 0.986273, z: -0.15115641, w: 0.06569617}
+  m_LocalRotation: {x: 0.010068606, y: 0.986273, z: -0.15115643, w: 0.06569615}
   m_LocalPosition: {x: -3.9962134, y: 22.854889, z: 42.7769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19399,7 +19399,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124786513}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -31604,7 +31604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700897282}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.010068608, y: 0.986273, z: -0.15115641, w: 0.06569617}
+  m_LocalRotation: {x: 0.010068606, y: 0.986273, z: -0.15115643, w: 0.06569615}
   m_LocalPosition: {x: 134.94928, y: 76.239136, z: 310.77246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35453,7 +35453,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 10
+  m_CharacterLimit: 8
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
