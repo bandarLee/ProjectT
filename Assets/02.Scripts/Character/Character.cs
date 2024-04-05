@@ -44,7 +44,16 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
 
     private void Start()
     {
+        if (!PhotonView.IsMine)
+        {
+            return;
+        }
+
         SetRandomPositionAndRotation();
+        ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
+        hashtable.Add("Score", 0);
+        hashtable.Add("KillCount", 0);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
     private void Update()
@@ -55,10 +64,10 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
             //transform.rotation = Quaternion.Slerp(transform.rotation, _recivedRotation, Time.deltaTime * 20f);
         }
 
-        /*if (transform.position.y < -20) // 예시로 -20을 사용
+        if (transform.position.y < -20) 
         {
             StartCoroutine(Death_Coroutine());
-        }*/
+        }
     }
 
     // 데이터 동기화를 위해 데이터 전송 및 수신 기능을 가진 약속

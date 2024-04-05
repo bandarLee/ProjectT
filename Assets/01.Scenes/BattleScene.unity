@@ -10797,9 +10797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff301202dbd85fb47bfedee0dc984843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomNameTextUI: {fileID: 487042739}
-  PlayerCountTextUI: {fileID: 706597854}
-  LogTextUI: {fileID: 1931999550}
+  RoomNameTextUI: {fileID: 0}
+  PlayerCountTextUI: {fileID: 0}
+  LogTextUI: {fileID: 0}
 --- !u!1001 &1069545581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13430,11 +13430,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8659723387852137529, guid: 3e2accafa3a5f1b40ba86cf39bcb49a7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 108225653778294438, guid: 3e2accafa3a5f1b40ba86cf39bcb49a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1912120988}
   m_SourcePrefab: {fileID: 100100000, guid: 3e2accafa3a5f1b40ba86cf39bcb49a7, type: 3}
+--- !u!1 &1354212489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 108225653778294438, guid: 3e2accafa3a5f1b40ba86cf39bcb49a7, type: 3}
+  m_PrefabInstance: {fileID: 1354212488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1357305052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6201417577865796235, guid: 936441e8ad7465e409c2285b778dfd8f, type: 3}
@@ -17359,6 +17368,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 108225653778528902, guid: 3e2accafa3a5f1b40ba86cf39bcb49a7, type: 3}
   m_PrefabInstance: {fileID: 1354212488}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1912120988
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354212489}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.1681855, y: 7.6279864, z: 2.2199554}
+  m_Center: {x: -0.13366078, y: 3.814026, z: 0.3604021}
 --- !u!4 &1913031835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 487885705732503582, guid: 5172505cfbc25c644ad2ab70b9c6271a, type: 3}
@@ -18687,6 +18717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c883797effcd149b69877de26b751a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NicknameInput: {fileID: 0}
+  joinButton: {fileID: 0}
 --- !u!4 &2095241943
 Transform:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class ItemObjectFactory : MonoBehaviourPun
     [PunRPC]
     private void Create(ItemType type, Vector3 position) // 함부로 접근 못함: PRIVATE
     {
-        Vector3 dropPos = position + new Vector3(0, 0.5f, 0f) + Random.insideUnitSphere;
+        Vector3 dropPos = position + new Vector3(0, 1f, 0f) + Random.insideUnitSphere;
         PhotonNetwork.InstantiateRoomObject(type.ToString(), dropPos, Quaternion.identity); 
         // 이유) 플레이어 나가면 아이템 사라짐 -> 방장만 관리할 수 있음
     }
