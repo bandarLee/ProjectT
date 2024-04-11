@@ -4,16 +4,17 @@ public class CharacterChoiceCam : MonoBehaviour
 {
     public enum CharacterClass
     {
-        Warrior,
-        Thief,
-        Wizard
+        Fire,
+        Water,
+        Dark,
+        Light
     }
-    public CharacterClass currentCharacter = CharacterClass.Warrior;
+    public CharacterClass currentCharacter = CharacterClass.Fire;
     public float moveDistance = 10.0f;
     public TextMeshProUGUI ClassText;
     public void MoveCameraLeft()
     {
-        if (currentCharacter > CharacterClass.Warrior)
+        if (currentCharacter > CharacterClass.Fire)
         {
             currentCharacter = (CharacterClass)((int)currentCharacter - 1);
             MoveCamera(-moveDistance);
@@ -22,7 +23,7 @@ public class CharacterChoiceCam : MonoBehaviour
 
     public void MoveCameraRight()
     {
-        if (currentCharacter < CharacterClass.Wizard) 
+        if (currentCharacter < CharacterClass.Light) 
         {
             currentCharacter = (CharacterClass)((int)currentCharacter + 1);
             MoveCamera(moveDistance);
@@ -38,16 +39,20 @@ public class CharacterChoiceCam : MonoBehaviour
     {
         switch (currentCharacter)
         {
-            case CharacterClass.Warrior:
-                ClassText.text = "전사";
+            case CharacterClass.Fire:
+                ClassText.text = "적마법사";
 
                 break;
-            case CharacterClass.Thief:
-                ClassText.text = "도적";
+            case CharacterClass.Water:
+                ClassText.text = "청마법사";
 
                 break;
-            case CharacterClass.Wizard:
-                ClassText.text = "마법사";
+            case CharacterClass.Dark:
+                ClassText.text = "흑마법사";
+
+                break;
+            case CharacterClass.Light:
+                ClassText.text = "백마법사";
 
                 break;
         }
