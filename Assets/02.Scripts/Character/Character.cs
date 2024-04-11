@@ -244,8 +244,6 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이
 
     private void SetRandomPositionAndRotation()
     {
-        Vector3 spawnPoint = BattleScene.Instance.GetRandomSpawnPoint();
-        GetComponent<CharacterMoveAbility>().Teleport(spawnPoint);
         GetComponent<CharacterRotateAbility>().SetRandomRotation();
     }
 
