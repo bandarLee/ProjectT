@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using Photon.Pun;
+using ExitGames.Client.Photon;
 public class CharacterChoiceCam : MonoBehaviour
 {
     public enum CharacterClass
@@ -8,6 +11,19 @@ public class CharacterChoiceCam : MonoBehaviour
         Water,
         Dark,
         Light
+    }
+    public static CharacterChoiceCam Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     public CharacterClass currentCharacter = CharacterClass.Fire;
     public float moveDistance = 10.0f;
@@ -29,7 +45,15 @@ public class CharacterChoiceCam : MonoBehaviour
             MoveCamera(moveDistance);
         }
     }
+    public void SaveCharacterChoice()
+    {
+        Hashtable props = new Hashtable
+    {
+        { "CharacterClass", currentCharacter.ToString() }
+    };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
+    }
     private void MoveCamera(float distance)
     {
         transform.position = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);

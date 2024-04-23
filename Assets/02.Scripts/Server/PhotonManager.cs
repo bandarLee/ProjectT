@@ -63,6 +63,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
 
     public override void OnJoinedRoom()
     {
+        CharacterChoiceCam.Instance.SaveCharacterChoice();
         PhotonNetwork.LoadLevel("Scene1");
     }
 }

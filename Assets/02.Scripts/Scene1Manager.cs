@@ -5,18 +5,27 @@ using UnityEngine;
 
 public class Scene1Manager : MonoBehaviour
 {
-    void Awake()
-    {
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1);  // 1초 정도 대기 후 데이터 로드
+
+        if (PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InRoom)
+        {
+            string characterClass = (string)PhotonNetwork.LocalPlayer.CustomProperties["CharacterClass"];
+            if (characterClass != null)
+            {
+                InstantiateCharacterBasedOnClass(characterClass);
+            }
+
+        }
     }
-    private void Start()
-    {
-        PhotonNetwork.Instantiate(nameof(Character), Vector3.zero, Quaternion.identity);
 
-    }
-
-    void Update()
+    void InstantiateCharacterBasedOnClass(string className)
     {
+        GameObject prefab = Resources.Load<GameObject>(className);
+
+        PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
         
     }
 }
