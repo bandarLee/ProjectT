@@ -15,6 +15,8 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 [RequireComponent(typeof(CharacterRotateAbility))]
 [RequireComponent(typeof(CharacterAttackAbility))]
 [RequireComponent(typeof(CharacterShakeAbility))]
+[RequireComponent(typeof(MineMineral))]
+
 [RequireComponent(typeof(Animator))]
 
 public class Character : MonoBehaviour, IPunObservable, IDamaged // 인터페이스(약속)
